@@ -1,0 +1,207 @@
+@-o-keyframes highlightRouge {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #f91919;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+@-moz-keyframes highlightRouge {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #f91919;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+@-webkit-keyframes highlightRouge {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #f91919;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+@keyframes highlightRouge {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #f91919;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+
+
+@-o-keyframes highlightVert {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #2ded2d;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+@-moz-keyframes highlightVert {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #2ded2d;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+@-webkit-keyframes highlightVert {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #2ded2d;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+@keyframes highlightVert {
+ 	0% {
+ 		background: none
+ 	}50% {
+ 		background: #2ded2d;
+ 	}100% {
+ 		background: none;
+ 	} 		
+}
+
+.jaugeTD{
+	position: relative;
+	/*top: -20px;*/
+	width: 100%;
+	height: 100%;
+}
+.jaugeTDReduit{
+	position: relative;
+	top: -20px;
+	left: -35px;
+	width: 100%;
+	height: 100%;
+}
+.jauge0 {
+	font-size: 7px;
+	font-weight: bold;
+	color: black;
+	text-indent: -1px;
+    position: absolute;
+    right: 1px;
+	top: 1px;
+	width: 10px;
+	height: 100%;
+	text-align: center;
+	line-height:100%;
+	background-color: #e5e5e5;
+	border: 1px solid #ffffff;
+}
+.jauge1 {
+	position: absolute;
+	bottom:0px;
+	width: 10%;
+	height: 1px;
+	background-color: #f91919;
+
+}
+.jauge2 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 20%;
+	background-color: #f91919;
+
+}
+.jauge3 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 30%;
+	background-color: #f91919;
+
+}
+.jauge4 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 40%;
+	background-color: #f96019;
+
+}
+.jauge5 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 50%;
+	background-color: #ff8513;
+
+}
+.jauge6 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 60%;
+	background-color: #ffbc05;
+
+}
+.jauge7 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 70%;
+	background-color: #ded300;
+
+}
+.jauge8 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 80%;
+	background-color: #b8d300;
+
+}
+.jauge9 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 90%;
+	-o-animation: highlightVert 1s infinite;
+	-o-animation-timing-function: ease-in-out;
+	-moz-animation: highlightVert 1s infinite;
+	-moz-animation-timing-function: ease-in-out;
+	-webkit-animation: highlightVert 1s infinite;
+	-webkit-animation-timing-function: ease-in-out;
+	animation: highlightVert 1s infinite;
+	animation-timing-function: ease-in-out;
+}
+
+.jauge10 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 100%;
+	background-color: #2ded2d;
+
+}
+.jauge11 {
+	position: absolute;
+	bottom:0px;
+	width: 10px;
+	height: 100%;
+	-o-animation: highlightRouge 1s infinite;
+	-o-animation-timing-function: ease-in-out;
+	-moz-animation: highlightRouge 1s infinite;
+	-moz-animation-timing-function: ease-in-out;
+	-webkit-animation: highlightRouge 1s infinite;
+	-webkit-animation-timing-function: ease-in-out;
+	animation: highlightRouge 1s infinite;
+	animation-timing-function: ease-in-out;
+}
+.backgroundRouge{
+	background-color: #f91919;
+}
