@@ -2626,9 +2626,14 @@ function saveResourceAllocationToUser($allocation_id='', $resource_id, $user_id)
 	$resource->resource_id = $resource_id;
 	$resource->user_id = $user_id;
 	$resource->allocated_date = $formateDate;
-	if(!$resource->db_save()) {
-		$objResponse->addAlert(addslashes($smarty->get_config_vars('changeNotOK')));
-		return $objResponse;
+
+	if($resource->user_id != '') {
+		if(!$resource->db_save()) {
+			$objResponse->addAlert(addslashes($smarty->get_config_vars('changeNotOK')));
+			return $objResponse;
+		}
+	} else {
+		$resource->db_delete();
 	}
 
 	$_SESSION['message'] = 'changeOK';

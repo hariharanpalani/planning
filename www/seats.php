@@ -18,8 +18,8 @@ $sql = "select A.ressource_id as resource_id, A.resourcename, A.actualuser, pu.n
         where pp.user_id is null or (pp.projet_id in('WFH') and pp.date_debut <='" . $todayDate->format('Y-m-d') . "' 
         and pp.date_fin>='" . $todayDate->format('Y-m-d') . "')) A
         left outer join planning_resource_allocation pra on pra.resource_id = A.ressource_id
+        and pra.allocated_date = '" . $todayDate->format('Y-m-d') . "'
         left outer join planning_user pu on pu.user_id = pra.user_id
-        where pra.allocation_id is null or pra.allocated_date = '" . $todayDate->format('Y-m-d') . "'
         order by A.resourcename";
 $ressources->db_loadSQL($sql);
 $ressources->setPagination(NB_RESULT_PER_PAGE);
