@@ -304,6 +304,7 @@ body {
 	border-collapse: separate;
 	border-spacing: 1px;
 	table-layout: fixed;
+	width: 100%;
 }
 
 /* project cell */

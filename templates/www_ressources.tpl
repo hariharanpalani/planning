@@ -23,6 +23,12 @@
 							<th>
 								<b>{#ressource_nom#}</b>
 							</th>
+							<th>
+								<b>{#place_label#}</b>
+							</th>
+							<th>
+								<b>{#team_label#}</b>
+							</th>
 							<th class="ressourceTabColComment nowrap">
 								<b>{#ressource_commentaire#}</b>
 							</th>
@@ -35,10 +41,15 @@
 								<td class="w100 nowrap">
 									<a href="javascript:xajax_modifRessource('{$ressource.ressource_id|urlencode}');undefined;"><i class="fa fa-pencil fa-fw" aria-hidden="true" style='color:#333'></i></a>
 									<a href="javascript:xajax_supprimerRessource('{$ressource.ressource_id|urlencode}');undefined;" onClick="javascript:return confirm('{#confirm#|escape:"javascript"}')"><i class="fa fa-trash-o fa-fw" aria-hidden="true" style='color:#333'></i></a>
-									<a href="{$BASE}/process/planning.php?filtreSurRessource={$ressource.ressource_id}" title="{#planning_filtre_sur_ressource#|escape}"><i class="fa fa-globe fa-fw" aria-hidden="true" style='color:#333'></i></a>
 								</td>
 								<td>
 									{$ressource.nom}&nbsp;
+								</td>
+								<td>
+									{$ressource.lieuname}
+								</td>
+								<td>
+									{$ressource.teamname}
 								</td>
 								<td class="ressourceTabColComment nowrap">
 									{$ressource.commentaire}

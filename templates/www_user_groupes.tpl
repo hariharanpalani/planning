@@ -35,6 +35,7 @@
 								{assign var=totalUsers value=$totalUsers+$groupe.totalUsers}
 							{/foreach}
 							<th>{#user_groupe_nbUsers#} ({$totalUsers})</th>
+							<th>Location</th>
 						</tr>
 						{foreach name=groupes item=groupe from=$groupes}
 							<tr>
@@ -44,6 +45,7 @@
 								</td>
 								<td>{$groupe.nom|escape}&nbsp;</td>
 								<td>{$groupe.totalUsers}&nbsp;</td>
+								<td>{$groupe.place}</td>
 							</tr>
 						{/foreach}
 					</table>

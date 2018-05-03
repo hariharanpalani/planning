@@ -1223,7 +1223,7 @@ function submitFormUser($user_id, $user_id_origine, $user_groupe_id, $nom, $emai
 	$user_form->resource_id = ($resource_id != '' ? $resource_id : null);
 	$user_form->login = ($login != '' ? $login : null);
 	if($password != '') {
-		$user_form->password = sha1("�" . $password . "�");
+		$user_form->password = sha1($password);
 
 	}
 	if($visible_planningOui == 'true') {
@@ -1332,7 +1332,7 @@ function submitFormProfil($user_id, $email, $password, $dateformat, $notificatio
 	}
 
 	if(trim($password) != '') {
-		$user->password = sha1("�" . $password . "�");
+		$user->password = sha1($password);
 	}
 
 	if(trim($email) != '' && !VerifierAdresseMail($email)) {
@@ -1444,7 +1444,7 @@ function nouveauPwd($password) {
 	if(!$userTmp->db_load(array('user_id', '=', $_SESSION['change_password']))) {
 		return $objResponse;
 	}
-	$userTmp->password = sha1("�" . $password . "�");
+	$userTmp->password = sha1($password);
 	if(!$userTmp->db_save()) {
 		$objResponse->addAlert($smarty->get_config_vars('erreur'));
 		return $objResponse;
@@ -2030,15 +2030,20 @@ function modifUserGroupe($user_groupe_id= '') {
 	}
 	$smarty->assign('user', $user->getSmartyData());
 
+	$listeLieux = new GCollection('Lieu');
+	$listeLieux->db_load(array(), array('nom' => 'ASC'));
+	$smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
 	$objResponse->addScript('jQuery("#myModal .modal-header h3").html("' . addslashes($smarty->get_config_vars('menuGroupesUsers')) . '")');
 	$objResponse->addScript('jQuery("#myModal .modal-body").html("' . xajaxFormat($smarty->getHtml('user_group_form.tpl')) . '")');
 	$objResponse->addScript('jQuery("#myModal").modal()');
+	$objResponse->addScript("initselect2('$lang','".$smarty->get_config_vars('choix_option')."')");
 
 	return $objResponse->getXML();
 }
 
 
-function submitFormUserGroupe($user_groupe_id, $nom) {
+function submitFormUserGroupe($user_groupe_id, $nom, $lieu_id) {
 	$objResponse = new xajaxResponse();
 	$smarty = new MySmarty();
 
@@ -2054,11 +2059,17 @@ function submitFormUserGroupe($user_groupe_id, $nom) {
 		return $objResponse;
 	}
 
+	if(trim($lieu_id) == '') {
+		$objResponse->addAlert($smarty->get_config_vars('place_mandate'));
+		return $objResponse;
+	}
+
 	$groupe = new User_groupe();
 	if($user_groupe_id > 0) {
 		$groupe->db_load(array('user_groupe_id', '=', $user_groupe_id));
 	}
 	$groupe->nom = $nom;
+	$groupe->lieu_id = $lieu_id;
 
 	if(!$groupe->db_save()) {
 		$objResponse->addAlert(addslashes($smarty->get_config_vars('changeNotOK')));
@@ -2183,7 +2194,7 @@ function icalGenererLien($ical_users = '', $ical_projets = '', $ical_projets_cb 
 }
 
 
-function modifLieu($lieu_id) {
+function modifLieu($lieu_id = '') {
 	$objResponse = new xajaxResponse('ISO-8859-1');
 	$smarty = new MySmarty();
 
@@ -2399,14 +2410,23 @@ function modifRessource($ressource_id = '') {
 
 	$smarty->assign('ressource', $ressource->getSmartyData());
 
+	$listeLieux = new GCollection('Lieu');
+	$listeLieux->db_load(array(), array('nom' => 'ASC'));
+	$smarty->assign('listeLieux', $listeLieux->getSmartyData());
+
+	$groupes = new GCollection('User_groupe');
+	$groupes->db_load(array(), array('nom' => 'ASC'));
+	$smarty->assign('teams', $groupes->getSmartyData());
+
 	$objResponse->addScript('jQuery("#myModal .modal-header h3").html("' . addslashes($smarty->get_config_vars('menuRessources')) . '")');
 	$objResponse->addScript('jQuery("#myModal .modal-body").html("' . xajaxFormat($smarty->getHtml('ressource_form.tpl')) . '")');
 	$objResponse->addScript('jQuery("#myModal").modal()');
+	$objResponse->addScript("initselect2('$lang','".$smarty->get_config_vars('choix_option')."')");
 	return $objResponse->getXML();
 }
 
 
-function submitFormRessource($ressource_id, $new_ressource_id, $nom, $commentaire, $exclusif) {
+function submitFormRessource($ressource_id, $new_ressource_id, $nom, $commentaire, $exclusif, $lieu_id, $team_id) {
 	$objResponse = new xajaxResponse();
 	$smarty = new MySmarty();
 
@@ -2414,6 +2434,11 @@ function submitFormRessource($ressource_id, $new_ressource_id, $nom, $commentair
 	if($user->chargerUserFromSession() !== TRUE || !$user->checkDroit('ressources_all')) {
 		$objResponse->addAlert(addslashes($smarty->get_config_vars('ajax_droitsInsuffisants')));
 		$objResponse->addScript('location.reload();');
+		return $objResponse;
+	}
+
+	if(trim($lieu_id) == '') {
+		$objResponse->addAlert(addslashes($smarty->get_config_vars('place_mandate')));
 		return $objResponse;
 	}
 
@@ -2438,6 +2463,8 @@ function submitFormRessource($ressource_id, $new_ressource_id, $nom, $commentair
 
 	$ressource->nom = $nom;
 	$ressource->commentaire = ($commentaire != '' ? $commentaire : null);
+	$ressource->user_groupe_id = ($team_id != '' ? $team_id : null);
+	$ressource->lieu_id = $lieu_id;
 	if ($exclusif=='true')
     {$ressource->exclusif=1;
     }else $ressource->exclusif=0;

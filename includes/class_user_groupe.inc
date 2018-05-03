@@ -9,6 +9,7 @@ class User_groupe extends GObject
 
 		$this->fields['user_groupe_id'] = new GInteger('planning_user_groupe', 'user_groupe_id', 11, FALSE, 0);
 		$this->fields['nom'] = new GString('planning_user_groupe', 'nom', 150, FALSE, '');
+		$this->fields['lieu_id'] = new GString('planning_user_groupe', 'lieu_id', 10, FALSE, '');
 
 		$this->primaryKeys = array('user_groupe_id');
 

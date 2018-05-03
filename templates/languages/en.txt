@@ -759,3 +759,7 @@ usersBulkRights_error1 = "Please choose at least one user to update"
 
 projets_actifs_non_couvrants = "Active projects not covered on this period"
 pdf_inclure_recap = "Include summary under the planning"
+
+place_mandate = "Please select a place"
+place_label = "Location"
+team_label = "Team"

@@ -34,9 +34,11 @@ if (isset($_GET['by'])) {
 
 $groupes = new GCollection('User_groupe');
 
-$groupes->db_loadSQL('SELECT distinct g.user_groupe_id, g.nom, COUNT(u.user_id) as "totalUsers"
-						FROM planning_user_groupe g LEFT JOIN planning_user u ON g.user_groupe_id = u.user_groupe_id
-						GROUP BY g.user_groupe_id, g.nom
+$groupes->db_loadSQL('SELECT distinct g.user_groupe_id, g.nom, l.lieu_id, l.nom as place, COUNT(u.user_id) as "totalUsers"
+						FROM planning_user_groupe g
+						inner join planning_lieu l on l.lieu_id = g.lieu_id 
+						LEFT JOIN planning_user u ON g.user_groupe_id = u.user_groupe_id
+						GROUP BY g.user_groupe_id, g.nom, l.nom, l.lieu_id
 						ORDER BY '. $order . ' ' . $by);
 
 $groupes->setPagination(1000);

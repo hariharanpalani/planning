@@ -118,7 +118,7 @@ if(isset($_GET['direct_periode_id']) && $_GET['direct_periode_id'] > 0) {
 		header('Location: index.php');
 		exit;
 	}
-	if(!isset($_GET['hash']) || $_GET['hash'] != md5($_GET['direct_periode_id'] . '!¤' . $_GET['date'] . '¤' . CONFIG_SECURE_KEY)) {
+	if(!isset($_GET['hash']) || $_GET['hash'] != md5($_GET['direct_periode_id'] . '!ï¿½' . $_GET['date'] . 'ï¿½' . CONFIG_SECURE_KEY)) {
 		$_SESSION['message'] = 'Invalid URL';
 		header('Location: index.php');
 		exit;
@@ -165,7 +165,7 @@ if($ADLogin && ($_POST['login'] != 'admin')) {
         exit;
     }
 } else {
-	$pwd = sha1("¤" . $_POST['password'] . "¤");
+	$pwd = sha1($_POST['password']);
 	if(!$user->db_load(array('login', '=', $_POST['login'], 'password', '=', $pwd))) {
         $_SESSION['message'] = 'erreur_bad_login';
         header('Location: ../index.php');
@@ -177,13 +177,13 @@ $_SESSION['user_id'] = $user->user_id;
 $user->date_dernier_login = date('Y-m-d H:i:s');
 $user->db_save();
 
-// Recherche des préférences utilisateurs pour affichage du planning par défaut
+// Recherche des prï¿½fï¿½rences utilisateurs pour affichage du planning par dï¿½faut
 $_SESSION['preferences'] = $user->getPreferences();
-$_SESSION['inverserUsersProjets'] = $_SESSION['preferences']['inverserUsersProjets'];
+$_SESSION['inverserUsersProjets'] = false; //$_SESSION['preferences']['inverserUsersProjets'];
 $_SESSION['dimensionCase'] = $_SESSION['preferences']['dimensionCase'];
 setcookie('inverserUsersProjets', $_SESSION['inverserUsersProjets'], time()+60*60*24*500, '/');
 
-// Préférence de vue planning
+// Prï¿½fï¿½rence de vue planning
 if (isset($_SESSION['preferences']['vuePlanning']) && ($_SESSION['preferences']['vuePlanning']=="vueTaches") && (CONFIG_SOPLANNING_OPTION_TACHES == 1))
 {
 	header('Location: ../taches.php');

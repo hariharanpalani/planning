@@ -451,8 +451,8 @@ font-weight:bold
 }
 
 .planningContent td {
-	min-width: 25px;
-	min-height: 20px;
+	min-width: 30px;
+	min-height: 30px;
 	line-height: 20px;
 }
 .planningTabName {
