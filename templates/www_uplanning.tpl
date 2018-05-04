@@ -142,9 +142,9 @@
 						{/if}
 						<button class="btn dropdown-toggle btn-sm btn-default" data-toggle="dropdown"><i class="fa fa-sort fa-lg fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;<span class="caret"></span></button>
 						<ul class="dropdown-menu">
-							<li><a href="{$BASE}/process/planning.php?scrolls=HV" {if $scrolls eq "HV"}class="btn-info"{/if}>{#scrolls_hv#|escape}</a></li>
-							<li><a href="{$BASE}/process/planning.php?scrolls=H" {if $scrolls eq "H"}class="btn-info"{/if}>{#scrolls_h#|escape}</a></li>
-							<li><a href="{$BASE}/process/planning.php?scrolls=NONE" {if $scrolls eq "NONE"}class="btn-info"{/if}>{#scrolls_none#|escape}</a></li>
+							<li><a href="{$BASE}/process/uplanning.php?scrolls=HV" {if $scrolls eq "HV"}class="btn-info"{/if}>{#scrolls_hv#|escape}</a></li>
+							<li><a href="{$BASE}/process/uplanning.php?scrolls=H" {if $scrolls eq "H"}class="btn-info"{/if}>{#scrolls_h#|escape}</a></li>
+							<li><a href="{$BASE}/process/uplanning.php?scrolls=NONE" {if $scrolls eq "NONE"}class="btn-info"{/if}>{#scrolls_none#|escape}</a></li>
 						</ul>
 					</div>
 
@@ -235,7 +235,7 @@
 								{if $pageLignes eq $smarty.section.loopPages.iteration}
 									<li class="active"><a href="#">{$smarty.section.loopPages.iteration}</a></li>
 									{else}
-									<li><a href="{$BASE}/process/planning.php?page_lignes={$smarty.section.loopPages.iteration}">{$smarty.section.loopPages.iteration}</a></li>
+									<li><a href="{$BASE}/process/uplanning.php?page_lignes={$smarty.section.loopPages.iteration}">{$smarty.section.loopPages.iteration}</a></li>
 									{/if}
 									{if !$smarty.section.loopPages.last}
 									{/if}
@@ -249,7 +249,7 @@
 						<ul class="dropdown-menu">
 							{foreach from=$tabPages item=valTemp}
 							<li>
-								<a onClick="top.location='{$BASE}/process/planning.php?nb_lignes=+{$valTemp}'">{$valTemp} {#planning_nbLignes#}</a>
+								<a onClick="top.location='{$BASE}/process/uplanning.php?nb_lignes=+{$valTemp}'">{$valTemp} {#planning_nbLignes#}</a>
 							</li>
 							{/foreach}
 						</ul>
@@ -309,164 +309,6 @@ function modifPeriode(obj, periode_id){
 {literal}
 </script>
 {/literal}
-{* FIN GESTION DU DRAG N DROP *}
-{* JAVASCRIPT POUR CHOIX FILTRE PROJETS *}
-<script type="text/javascript">
-var listeProjets = new Array();
-listeProjets[0] = new Array();
-{assign var=groupeTemp value=""}
-{foreach from=$listeProjets item=projetCourant}
-	{if $projetCourant.groupe_id neq $groupeTemp}
-		listeProjets[{$projetCourant.groupe_id}] = new Array();
-	{/if}
-	{if $projetCourant.groupe_id eq ''}
-		listeProjets[0].push('{$projetCourant.projet_id}');
-	{else}
-		listeProjets[{$projetCourant.groupe_id}].push('{$projetCourant.projet_id}');
-	{/if}
-	{assign var=groupeTemp value=$projetCourant.groupe_id}
-{/foreach}
-
-{literal}
-// coche ou decoche tous les projets
-function filtreGroupeProjetCocheTous(action) {
-	for (var groupe in listeProjets) {
-		if (!document.getElementById('g' + groupe)) {
-			// si pas une case ? cocher existantes, on sort
-			continue;
-		}
-		document.getElementById('g' + groupe).checked = action;
-		for (var projet in listeProjets[groupe]) {
-			if (!document.getElementById('projet_' + listeProjets[groupe][projet])) {
-				// si pas une case ? cocher existantes, on sort
-				continue;
-			}
-			document.getElementById('projet_' + listeProjets[groupe][projet]).checked = action;
-		}
-	}
-}
-
-// coche ou decoche les projets d'un groupe
-function filtreCocheGroupe(groupe) {
-	var action = document.getElementById('g' + groupe).checked;
-	for (var projet in listeProjets[groupe]) {
-		if (!document.getElementById('projet_' + listeProjets[groupe][projet])) {
-			// si pas une case ? cocher existantes, on sort
-			continue;
-		}
-		document.getElementById('projet_' + listeProjets[groupe][projet]).checked = action;
-	}
-}
-
-// decoche le groupe si on decoche un projet
-function checkStatutGroupe(obj, groupe) {
-	if (groupe == '') {
-		groupe = '0';
-	}
-	if (!obj.checked) {
-		document.getElementById('g' + groupe).checked = false;
-	}
-}
-
-{/literal}
-</script>
-{* FIN JAVASCRIPT POUR CHOIX FILTRE PROJETS *}
-
-{* MENU POUR CHOIX ACTION APRES DRAG AND DROP CASE *}
-<script type="text/javascript">
-	var idCaseEnCoursDeplacement = false;
-	var idCaseDestination = false;
-</script>
-
-<div id="divChoixDragNDrop" onMouseOut="masquerSousMenuDelai('divChoixDragNDrop');" onMouseOver="AnnuleMasquerSousMenu('divChoixDragNDrop');" onfocus="AnnuleMasquerSousMenu('divChoixDragNDrop')">
-	<a href="javascript:windowPatienter();xajax_moveCasePeriode(idCaseEnCoursDeplacement, destination, false);undefined;">{#planning_deplacer#}</a>
-	<br /><br />
-	<a href="javascript:windowPatienter();xajax_moveCasePeriode(idCaseEnCoursDeplacement, destination, true);undefined;">{#planning_copier#}</a>
-	<br /><br />
-	<a href="javascript:location.reload();undefined;">{#planning_annuler#}</a>
-</div>
-
-{* JAVASCRIPT POUR CHOIX FILTRE USERS *}
-<script type="text/javascript">
-var listeUsers = new Array();
-listeUsers[0] = new Array();
-{assign var=groupeTemp value=""}
-{foreach from=$listeUsers item=userCourant}
-	{if $userCourant.user_groupe_id neq $groupeTemp}
-		listeUsers[{$userCourant.user_groupe_id}] = new Array();
-	{/if}
-	{if $userCourant.user_groupe_id eq ''}
-		listeUsers[0].push('{$userCourant.user_id}');
-	{else}
-		listeUsers[{$userCourant.user_groupe_id}].push('{$userCourant.user_id}');
-	{/if}
-	{assign var=groupeTemp value=$userCourant.user_groupe_id}
-{/foreach}
-
-
-{literal}
-// coche ou decoche tous les Users
-function filtreUserCocheTous(action) {
-	for (var groupe in listeUsers) {
-		if (!document.getElementById('gu' + groupe)) {
-			// si pas une case ? cocher existantes, on sort
-			continue;
-		}
-		document.getElementById('gu' + groupe).checked = action;
-		for (var user in listeUsers[groupe]) {
-			if (!document.getElementById('user_' + listeUsers[groupe][user])) {
-				// si pas une case ? cocher existantes, on sort
-				continue;
-			}
-			document.getElementById('user_' + listeUsers[groupe][user]).checked = action;
-		}
-	}
-}
-
-// coche ou decoche les users d'un groupe
-function filtreCocheUserGroupe(groupe) {
-	var action = document.getElementById('gu' + groupe).checked;
-	for (var user in listeUsers[groupe]) {
-		if (!document.getElementById('user_' + listeUsers[groupe][user])) {
-			// si pas une case ? cocher existantes, on sort
-			continue;
-		}
-		document.getElementById('user_' + listeUsers[groupe][user]).checked = action;
-	}
-}
-
-
-
-function CocheDecocheTout(ref, name) {
-	var elements = document.getElementsByTagName('input');
-
-	for (var i = 0; i < elements.length; i++) {
-		if (elements[i].type == 'checkbox' && elements[i].name == name) {
-			elements[i].checked = ref;
-		}
-	}
-}
-
-// coche ou decoche les cases d'un filtre avancé
-function filtreCocheAvancesGroupe(statut) {
-CocheDecocheTout(statut,"statutsTache[]");
-CocheDecocheTout(statut,"statutsProjet[]");
-CocheDecocheTout(statut,"lieu[]");
-CocheDecocheTout(statut,"ressource[]");
-}
-
-// decoche le groupe si on decoche un user
-function checkStatutUserGroupe(obj, groupe) {
-	if (groupe == '') {
-		groupe = '0';
-	}
-	if (!obj.checked) {
-		document.getElementById('gu' + groupe).checked = false;
-	}
-}
-{/literal}
-</script>
-{* FIN JAVASCRIPT POUR CHOIX FILTRE USERS *}
 {* FONCTION POUR COPIER LE TABLEAU DES PERSONNES *}
 <script type="text/javascript">
 {literal}
@@ -730,40 +572,6 @@ $(window).resize(function(e) {
 });
 {/literal}
 
-{literal}
-$("#filtreGroupeProjet").multiselect({
-	selectAll:false,
-	noUpdatePlaceholderText:true,
-	nameSuffix: 'projet',
-	desactivateUrl: 'process/planning.php?desactiverFiltreGroupeProjet=1',
-	placeholder: '{/literal}{#taches_filtreProjets#}{literal}',
-	texts: {
-       selectAll    : '{/literal}{#formFiltreProjetCocherTous#}{literal}',
-       unselectAll    : '{/literal}{#formFiltreProjetDecocherTous#}{literal}',
-	   disableFilter : '{/literal}{#formFiltreProjetDesactiver#}{literal}',
-	   validateFilter : '{/literal}{#submit#}{literal}',
-	   search : '{/literal}{#search#}{literal}'
-	},
-});
-$("#filtreGroupeProjet").show();
-{/literal}
-{literal}
-$("#filtreUser").multiselect({
-	selectAll:false,
-	noUpdatePlaceholderText:true,
-	nameSuffix: 'user',
-	desactivateUrl: 'process/planning.php?desactiverFiltreUser=1',
-	placeholder: '{/literal}{#formChoixUser#}{literal}',
-	texts: {
-       selectAll    : '{/literal}{#formFiltreUserCocherTous#}{literal}',
-       unselectAll    : '{/literal}{#formFiltreUserDecocherTous#}{literal}',
-	   disableFilter : '{/literal}{#formFiltreUserDesactiver#}{literal}',
-	   validateFilter : '{/literal}{#submit#}{literal}',
-	   search : '{/literal}{#search#}{literal}'
-	},
-});
-$("#filtreUser").show();
-{/literal}
 </script>
 
 {include file="www_footer.tpl"}

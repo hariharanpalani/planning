@@ -25,6 +25,7 @@
                         <thead>
                             <tr>
                                 <th>{#headerDesk#}</th>
+                                <th>{#place_label#}</th>
                                 <th>{#headerAssign#}</th>
                             </tr>
                         </thead>
@@ -32,6 +33,7 @@
                         {foreach name=resources item=resource from=$resources}
                             <tr>
                                 <td>{$resource.resourcename | xss_protect}</td>
+                                <td>{ $resource.locationname | xss_protect }</td>
                                 {if $resource.assigneduser != null}
                                     <td><a href="javascript:Reloader.stopRefresh();xajax_allocateResourceToUser('{$resource.resourcename}', '{$resource.resource_id}', '{$resource.allocation_id}');undefined;" class="badge badge-success">{$resource.assigneduser}</a></td>
                                 {else}

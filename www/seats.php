@@ -11,16 +11,22 @@ $js = '';
 $todayDate = new DateTime();
 
 $ressources = new GCollection('Ressource');
-$sql = "select A.ressource_id as resource_id, A.resourcename, A.actualuser, pu.nom as assigneduser, pra.allocation_id from (
-        select PR.ressource_id, PR.nom as resourcename, pu.nom as actualuser, pu.user_id from planning_ressource PR
-        left outer join planning_user pu on pu.resource_id = pr.ressource_id
-        left outer join planning_periode pp on pu.user_id = pp.user_id
-        where pp.user_id is null or (pp.projet_id in('WFH') and pp.date_debut <='" . $todayDate->format('Y-m-d') . "' 
-        and pp.date_fin>='" . $todayDate->format('Y-m-d') . "')) A
-        left outer join planning_resource_allocation pra on pra.resource_id = A.ressource_id
-        and pra.allocated_date = '" . $todayDate->format('Y-m-d') . "'
-        left outer join planning_user pu on pu.user_id = pra.user_id
-        order by A.resourcename";
+$sql = "select A.ressource_id as resource_id, A.nom as resourcename, pl.lieu_id, pl.nom as locationname, pru.user_id, pru.nom as assigneduser,
+        pra.allocation_id
+        from (select pr.ressource_id, pr.nom, pr.lieu_id from planning_ressource pr 
+                left outer join planning_user pu on pr.ressource_id = pu.resource_id
+                where pu.resource_id is null
+                UNION
+                select PR.ressource_id, PR.nom,pr.lieu_id from planning_ressource PR
+                inner join planning_user pu on pr.ressource_id = pu.resource_id
+                inner join planning_user_unavailability puu on pu.user_id = puu.user_id
+                inner join planning_type pt on puu.type_id = pt.type_id
+                where (puu.start_date between puu.start_date AND '" . $todayDate->format('Y-m-d') ."') 
+                and puu.end_date > '" . $todayDate->format('Y-m-d') ."') A
+                left outer join planning_resource_allocation pra on a.ressource_id = pra.resource_id
+                left outer join planning_lieu pl on A.lieu_id = pl.lieu_id
+                left outer join planning_user pru on pra.user_id = pru.user_id
+                where pra.resource_id is null or pra.allocated_date ='" . $todayDate->format('Y-m-d') . "' order by a.nom asc";
 $ressources->db_loadSQL($sql);
 $ressources->setPagination(NB_RESULT_PER_PAGE);
 if (!empty($_GET['page'])) {
