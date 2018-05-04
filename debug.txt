@@ -55,3 +55,78 @@ SELECT distinct g.user_groupe_id, g.nom, l.lieu_id, l.nom as place COUNT(u.user_
 						GROUP BY g.user_groupe_id, g.nom, l.nom, l.lieu_id
 						ORDER BY nom ASC
 SELECT user_id AS user_id, user_groupe_id AS user_groupe_id, nom AS nom, login AS login, password AS password, email AS email, visible_planning AS visible_planning, couleur AS couleur, droits AS droits, cle AS cle, notifications AS notifications, adresse AS adresse, telephone AS telephone, mobile AS mobile, metier AS metier, commentaire AS commentaire, date_dernier_login AS date_dernier_login, preferences AS preferences, resource_id AS resource_id FROM planning_user  WHERE user_id = 'ADM'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='user'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='user'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='user'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='user'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='user'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='user'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='john'
+select PRA.id, PRA.user_id, PRA.type_id, PRA.start_date, PRA.end_date, PT.name, PT.description from planning_user_unavailability pra
+			inner join planning_TYPE PT ON PT.type_id = PRA.type_id
+			INNER JOIN PLANNING_USER PU ON PU.user_id = PRA.user_id
+			INNER JOIN planning_user_groupe PUG ON PUG.user_groupe_id = PU.user_groupe_id
+			WHERE PUG.user_groupe_id = and pra.user_id='user'

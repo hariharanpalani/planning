@@ -80,7 +80,7 @@
 							<li class="dropdown pull-left">
 								<a href="{$BASE}/planning.php" class="dropdown-toggle "><i class="fa fa-calendar fa-lg" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{#menuPlanning#}</a>
 								<ul class="dropdown-menu dropdown-menu-hover">
-									<li><a href="{$BASE}/planning.php"><i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#menuAfficherPlanning#}</a></li>
+									<li><a href="{$BASE}/uplanning.php"><i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#menuAfficherPlanning#}</a></li>
 									<li><a href="{$BASE}/seats.php"><i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#menuResourceAllocation#}</a></li>
 									<li><a href="{$BASE}/taches.php"><i class="fa fa-list fa-lg fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;{#menuAfficherTaches#}</a></li>
 									{if !in_array("tasks_readonly", $user.tabDroits)}

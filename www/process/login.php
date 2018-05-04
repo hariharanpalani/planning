@@ -189,11 +189,14 @@ if (isset($_SESSION['preferences']['vuePlanning']) && ($_SESSION['preferences'][
 	header('Location: ../taches.php');
 }else
 {
-	if (!isset($_SESSION['preferences']['vueJourMois']) ||($_SESSION['preferences']['vueJourMois']=='vueMois')) {
+	/*if (!isset($_SESSION['preferences']['vueJourMois']) ||($_SESSION['preferences']['vueJourMois']=='vueMois')) {
 		header('Location: ../planning.php');
 	} else {
 		header('Location: ../planning_per_day.php');
 	}
+	*/
+
+	header('Location: ../uplanning.php');
 }
 exit;
 
