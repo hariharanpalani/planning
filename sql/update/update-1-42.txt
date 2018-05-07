@@ -1,0 +1,22 @@
+ALTER TABLE `planning_user` ADD `resource_id` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_general_ci NULL AFTER `preferences`;
+ALTER TABLE `planning_user` ADD CONSTRAINT `planning_user_resource` FOREIGN KEY (`resource_id`) REFERENCES `planning_ressource`(`ressource_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+CREATE TABLE `soplanning`.`planning_resource_allocation` ( `allocation_id` INT NOT NULL AUTO_INCREMENT , `resource_id` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL , `user_id` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL , `allocated_date` DATETIME NOT NULL ,
+ `created_by` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL , `created_date` DATETIME NOT NULL , `modified_by` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL , `modified_date` DATETIME NOT NULL , PRIMARY KEY (`allocation_id`));
+
+
+ALTER TABLE `planning_resource_allocation` ADD CONSTRAINT `resource_allocation_fk` FOREIGN KEY (`resource_id`) REFERENCES `planning_ressource`(`ressource_id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `planning_resource_allocation` ADD CONSTRAINT `resource_user_fk` FOREIGN KEY (`user_id`) REFERENCES `planning_user`(`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `planning_ressource` ADD `lieu_id` VARCHAR(10) NOT NULL AFTER `exclusif`;
+ALTER TABLE `planning_ressource` ADD CONSTRAINT `resource_lieu_id` FOREIGN KEY (`lieu_id`) REFERENCES `planning_lieu`(`lieu_id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `planning_ressource` ADD `user_groupe_id` INT(11) NULL AFTER `lieu_id`;
+ALTER TABLE `planning_ressource` ADD CONSTRAINT `resource_user_group_fk` FOREIGN KEY (`user_groupe_id`) REFERENCES `planning_user_groupe`(`user_groupe_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `planning_user_groupe` ADD `lieu_id` VARCHAR(10) NOT NULL AFTER `nom`;
+ALTER TABLE `planning_user_groupe` ADD CONSTRAINT `group_lieu_id` FOREIGN KEY (`lieu_id`) REFERENCES `planning_lieu`(`lieu_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+INSERT INTO `planning_type` (`type_id`, `name`, `description`) VALUES (NULL, 'WFH', 'WORK FROM HOME'),
+(NULL, 'SICK LEAVE', 'SICK LEAVE');
+
+CREATE TABLE `soplanning`.`planning_user_unavailability` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` VARCHAR(20)  CHARACTER SET latin1 COLLATE latin1_general_ci  NOT NULL , `type_id` INT NOT NULL, `start_date` DATE NOT NULL , `end_date` DATE NOT NULL , `created_by` VARCHAR(20)  CHARACTER SET latin1 COLLATE latin1_general_ci  NOT NULL , `created_date` DATETIME NOT NULL , `modified_by` VARCHAR(20)  CHARACTER SET latin1 COLLATE latin1_general_ci  NOT NULL , `modified_date` DATETIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
