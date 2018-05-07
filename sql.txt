@@ -1,0 +1,11 @@
+CREATE TABLE `planning_type` (
+ `type_id` int(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(50) NOT NULL,
+ `description` varchar(100) DEFAULT NULL,
+ PRIMARY KEY (`type_id`) USING BTREE
+) ENGINE=InnoDB
+
+INSERT INTO `planning_type` (`type_id`, `name`, `description`) VALUES (NULL, 'WFH', 'WORK FROM HOME'),
+(NULL, 'SICK LEAVE', 'SICK LEAVE');
+
+CREATE TABLE `soplanning`.`planning_user_unavailability` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `user_id` VARCHAR(20)  CHARACTER SET latin1 COLLATE latin1_general_ci  NOT NULL , `type_id` INT NOT NULL, `start_date` DATE NOT NULL , `end_date` DATE NOT NULL , `created_by` VARCHAR(20)  CHARACTER SET latin1 COLLATE latin1_general_ci  NOT NULL , `created_date` DATETIME NOT NULL , `modified_by` VARCHAR(20)  CHARACTER SET latin1 COLLATE latin1_general_ci  NOT NULL , `modified_date` DATETIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
