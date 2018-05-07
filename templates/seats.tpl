@@ -10,6 +10,7 @@
                 <div class="btn-group">
 					<div class="btn btn-default">
                         <b>{$todayDate}</b>
+                        <input type="hidden" id="team_id" name="team_id" value="{$currentUser.user_groupe_id}">
                     </div>
 				</div>
             </div>
@@ -35,9 +36,9 @@
                                 <td>{$resource.resourcename | xss_protect}</td>
                                 <td>{ $resource.locationname | xss_protect }</td>
                                 {if $resource.assigneduser != null}
-                                    <td><a href="javascript:Reloader.stopRefresh();xajax_allocateResourceToUser('{$resource.resourcename}', '{$resource.resource_id}', '{$resource.allocation_id}');undefined;" class="badge badge-success">{$resource.assigneduser}</a></td>
+                                    <td><a href="javascript:Reloader.stopRefresh();xajax_allocateResourceToUser('{$resource.resourcename}', '{$resource.resource_id}', '{$resource.allocation_id}', $('#team_id').val());undefined;" class="badge badge-success">{$resource.assigneduser}</a></td>
                                 {else}
-                                    <td><a href="javascript:Reloader.stopRefresh();xajax_allocateResourceToUser('{$resource.resourcename}', '{$resource.resource_id}', '{$resource.allocation_id}');undefined;" class="badge badge-light">&nbsp;</a></td>
+                                    <td><a href="javascript:Reloader.stopRefresh();xajax_allocateResourceToUser('{$resource.resourcename}', '{$resource.resource_id}', '{$resource.allocation_id}', $('#team_id').val());undefined;" class="badge badge-light">&nbsp;</a></td>
                                 {/if}
                             </tr>
                         {/foreach}

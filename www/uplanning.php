@@ -1001,7 +1001,7 @@ while($ligneTmp = $lines->fetch()) {
 
 				if($dimensionCase=='large') {$classCell="cellProjectLarge";}else $classCell="";
 				// la case avec le code du projet
-				$html .= '<div id="c_' . $jour['id'] . '_' . $tmpDate->format('Ymd') . '" class="cellProject '.$classCell.' tooltipster '.$classHidden.'" data-tooltip-content="#tooltip-'.$jour['id'].'"	style="color:' . $couleurTexte . ';' . $opacity . ';background-color:#' . $couleurFond . ';';
+				$html .= '<div id="c_' . $jour['id'] . '_' . $jour['user_id'] . '_' . $tmpDate->format('Ymd') . '" class="cellProject '.$classCell.' tooltipster '.$classHidden.'" data-tooltip-content="#tooltip-'.$jour['id'].'"	style="color:' . $couleurTexte . ';' . $opacity . ';background-color:#' . $couleurFond . ';';
 				if($dimensionCase=='reduit') {
  					$html .= 'border-radius: 10px;text-align:center;';
 				}

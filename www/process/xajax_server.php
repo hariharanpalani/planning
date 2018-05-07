@@ -2582,7 +2582,7 @@ function usersBulkRightsSubmit($bulk_users_ids, $droits, $specific_users_ids) {
 	return $objResponse;
 }
 
-function allocateResourceToUser($resource_name, $resource_id = '', $allocationId = '') {
+function allocateResourceToUser($resource_name, $resource_id = '', $allocationId = '', $team_id='') {
 	$objResponse = new xajaxResponse();
 	$smarty = new MySmarty();
 
@@ -2595,7 +2595,11 @@ function allocateResourceToUser($resource_name, $resource_id = '', $allocationId
 
 	$date = new DateTime();
 	$user = new GCollection('User');
-	$user->db_load(array('user_id', '<>', 'publicspl'), array('nom' => 'ASC'));
+	if(team_id == '')
+		$user->db_load(array('user_id', '<>', 'publicspl'), array('nom' => 'ASC'));
+	else
+		$user->db_load(array('user_id', '<>', 'publicspl', 'user_groupe_id', '=', $team_id), array('nom' => 'ASC'));
+
 	$smarty->assign('users', $user->getSmartyData());
 
 	$allocation = new ResourceAllocation();
@@ -2620,11 +2624,6 @@ function saveResourceAllocationToUser($allocation_id='', $resource_id, $user_id)
 	$smarty = new MySmarty();
 
 	$user = new User();
-	if($user->chargerUserFromSession() !== TRUE || !$user->checkDroit('ressources_all')) {
-		$objResponse->addAlert(addslashes($smarty->get_config_vars('ajax_droitsInsuffisants')));
-		$objResponse->addScript('location.reload();');
-		return $objResponse;
-	}
 
 	$today = new DateTime();
 	$formateDate = userdate2sqldate($today->format(CONFIG_DATE_LONG));
@@ -2668,5 +2667,22 @@ function saveResourceAllocationToUser($allocation_id='', $resource_id, $user_id)
 	return $objResponse;
 }
 
+function planUserAvailability($user_id = '', $allocation_id='', $startDate = '') {
+	$objResponse = new xajaxResponse();
+	$smarty = new MySmarty();
+
+	$user = new User();
+	$user->db_load(array('user_id', '=', $user_id));
+	$smarty->assign('user', $user->getSmartyData());
+	$smarty->assign('startDate', $startDate);
+
+	$objResponse->addScript('jQuery("#myModal .modal-header h3").html("' . addslashes($smarty->get_config_vars('planUserHeader')) . '")');
+	$objResponse->addScript('jQuery("#myModal .modal-body").html("' . xajaxFormat($smarty->getHtml('plan_user_availability.tpl')) . '")');
+	$objResponse->addScript('jQuery("#myModal").modal()');
+	
+	return $objResponse->getXML();
+}
+
 $xajax->processRequests();
+//d033e22ae348aeb5660fc2140aec35850c4da997
 ?>

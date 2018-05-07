@@ -56,5 +56,6 @@ $xajax->registerFunction('usersBulkRightsForm');
 $xajax->registerFunction('usersBulkRightsSubmit');
 $xajax->registerFunction('allocateResourceToUser');
 $xajax->registerFunction('saveResourceAllocationToUser');
+$xajax->registerFunction('planUserAvailability');
 
 ?>

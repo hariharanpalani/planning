@@ -512,12 +512,6 @@ addEvent(window, 'load', chargerScrolls);
 Reloader.init({/literal}{$smarty.const.CONFIG_REFRESH_TIMER}{literal});
 {/literal}
 
-{* when coming from an email *}
-{if isset($direct_periode_id)}
-	addEvent(window, 'load', function(){literal}{{/literal}xajax_modifPeriode({$direct_periode_id}){literal}}{/literal});
-{/if}
-
-
 {* textes pour erreur dans fichier JS *}
 var js_choisirProjet = '{#js_choisirProjet#|escape:"javascript"}';
 var js_choisirUtilisateur = '{#js_choisirUtilisateur#|escape:"javascript"}';
@@ -536,9 +530,9 @@ jQuery(function() {
 	event.stopPropagation();
 	var id=this.id;
 	idtab=id.split('_');
-	var periode=idtab[1];
-	// Formulaire ajout periode
-	modifPeriode(this, periode);
+	var allocation_id = idtab[1];
+	var user_id=idtab[2];
+	xajax_planUserAvailability(user_id, allocation_id);
 });
 
 $(window).resize(function(e) {
@@ -552,18 +546,13 @@ $(window).resize(function(e) {
 	jQuery("td.week").on("click",(function(){
 		var id=this.id;
 		idtab=id.split('_');
-		var projet=idtab[1];
+		var user_id=idtab[1];
 		var annee=idtab[2].substring(0, 4);
 		var mois=idtab[2].substring(4, 6);
 		var jour=idtab[2].substring(6, 8);
 		var datedebut=annee+'-'+mois+'-'+jour;
-		// Arret du refresh
 		Reloader.stopRefresh();
-		// Formulaire ajout periode
-		if (idtab[3] == null)
-		{
-		xajax_ajoutPeriode(datedebut, projet);
-		}else xajax_ajoutPeriode(datedebut, projet,'',idtab[3]);
+		xajax_planUserAvailability(user_id, '', datedebut);
 	}));
 	{/literal}
 {/if}

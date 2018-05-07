@@ -8,6 +8,12 @@ require BASE . '/../includes/header.inc';
 $html = '';
 $js = '';
 
+$user_id = $_SESSION['user_id'];
+
+$currentUser = new User();
+$currentUser->db_load(array('user_id', '=', $user_id));
+$smarty->assign('currentUser', $currentUser->getSmartyData());
+
 $todayDate = new DateTime();
 
 $ressources = new GCollection('Ressource');
